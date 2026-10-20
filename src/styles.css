@@ -1,0 +1,69 @@
+:root {
+  font-family: system-ui, sans-serif;
+  color: #e6edf6;
+  background: #10151f;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+body { margin: 0; }
+.app { position: relative; height: 100dvh; overflow: hidden; }
+.world, .screen { position: absolute; inset: 0; }
+
+/* Empty overlay areas let pointer events reach the 3D canvas. */
+.screen { pointer-events: none; }
+.panel {
+  pointer-events: auto;
+  background: rgb(22 30 44 / 94%);
+  border: 1px solid #354157;
+  border-radius: 12px;
+  padding: 16px;
+}
+
+.menu {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  right: 16px;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  background: #25334b;
+  border: 1px solid #52627a;
+  border-radius: 6px;
+  padding: 6px 12px;
+  cursor: pointer;
+}
+button[aria-pressed="true"] { color: #10151f; background: #9af2d0; }
+button:focus-visible, a:focus-visible { outline: 2px solid #9af2d0; outline-offset: 3px; }
+a { color: #9af2d0; }
+
+.details {
+  position: absolute;
+  top: 100px;
+  right: 16px;
+  bottom: 16px;
+  width: min(380px, calc(100% - 32px));
+  overflow: auto;
+}
+.close { display: block; margin-left: auto; }
+.node-frontmatter { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 6px 16px; }
+.node-frontmatter dt { color: #a6b5ca; }
+.node-frontmatter dd { margin: 0; overflow-wrap: anywhere; }
+.node-frontmatter pre { margin: 0; }
+.node pre { white-space: pre-wrap; overflow-wrap: anywhere; }
+.node img { max-width: 100%; }
+.node-body { overflow-x: auto; }
+.node-frontmatter-error { color: #ffb4ab; }
+.node table { border-collapse: collapse; }
+.node th, .node td { padding: 6px; border: 1px solid #52627a; }
+
+@media (max-width: 480px) {
+  .details { top: auto; max-height: 50dvh; }
+}

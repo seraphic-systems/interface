@@ -1,0 +1,218 @@
+{
+  "edges": [
+    {
+      "field": "values",
+      "source": "aim-independent-producers",
+      "target": "value-creative-flow"
+    },
+    {
+      "field": "assumptions",
+      "source": "bet-watermark-free-tier",
+      "target": "assumption-free-tier-demand"
+    },
+    {
+      "field": "outcome",
+      "source": "bet-watermark-free-tier",
+      "target": "outcome-plugin-wau"
+    },
+    {
+      "field": "related_nodes",
+      "source": "decision-plugin-feedback",
+      "target": "bet-watermark-free-tier"
+    },
+    {
+      "field": "related_nodes",
+      "source": "decision-plugin-feedback",
+      "target": "outcome-plugin-wau"
+    },
+    {
+      "field": "related_nodes",
+      "source": "decision-plugin-feedback",
+      "target": "task-pricing-interviews"
+    },
+    {
+      "field": "values",
+      "source": "outcome-plugin-wau",
+      "target": "value-creative-flow"
+    },
+    {
+      "field": "bet",
+      "source": "task-pricing-interviews",
+      "target": "bet-watermark-free-tier"
+    }
+  ],
+  "nodes": [
+    {
+      "content": "\n## Review notes\n\nConsider whether this direction still reflects the musicians we want to serve.\n",
+      "id": "aim-independent-producers",
+      "properties": {
+        "direction": "Become the go-to resampling tool for independent producers",
+        "values": [
+          "value-creative-flow"
+        ]
+      },
+      "title": "Serve independent producers",
+      "type": "Aim"
+    },
+    {
+      "content": "\n## Evidence\n\nPricing interviews and the landing-page test will help assess this belief.\n",
+      "id": "assumption-free-tier-demand",
+      "properties": {
+        "confidence": "low",
+        "statement": "A meaningful share of free-tier users will eventually pay for the plugin"
+      },
+      "title": "Free access will attract musicians who later pay",
+      "type": "Assumption"
+    },
+    {
+      "content": "\n## Plan\n\nStart with pricing interviews and a landing-page test, then reassess before Build.\n",
+      "id": "bet-watermark-free-tier",
+      "properties": {
+        "assumptions": [
+          "assumption-free-tier-demand"
+        ],
+        "confidence": "low",
+        "cost": 2,
+        "expectation": "We expect a free tier with a watermark to add 150 WAU within 6 weeks",
+        "guardrail_risk": false,
+        "impact": 3,
+        "key_unknowns": [
+          "Will free users convert to paid users?"
+        ],
+        "learning": 3,
+        "outcome": "outcome-plugin-wau",
+        "stage": "backlog",
+        "status": "active"
+      },
+      "title": "Free tier with a watermark",
+      "type": "Bet"
+    },
+    {
+      "content": "\n## Evidence and discussion\n\nRecord user feedback and the constraints considered before accepting or\nrejecting this proposal. On acceptance, set status to accepted and add decided_on.\n\n## Follow-up\n\nIf accepted, reflect the choice in the interview task checklist. Record later\nobservations here without rewriting the original rationale.\n",
+      "id": "decision-plugin-feedback",
+      "properties": {
+        "alternatives": [
+          {
+            "option": "Build a feedback portal immediately",
+            "tradeoff": "More structured feedback, but more work before learning what users need"
+          },
+          {
+            "option": "Choose pricing without interviews",
+            "tradeoff": "Less research work, but more uncertainty about user needs"
+          }
+        ],
+        "consequences": [
+          "Trial users can explain their needs",
+          "Feedback must initially be summarized manually",
+          "Someone must recruit and interview users"
+        ],
+        "context": "The plugin team needs feedback before choosing a pricing model",
+        "decision": "Interview trial users before building a feedback portal",
+        "decision_maker": "Tim",
+        "rationale": "Interviews let the team learn before investing in more software",
+        "related_nodes": [
+          "bet-watermark-free-tier",
+          "outcome-plugin-wau",
+          "task-pricing-interviews"
+        ],
+        "review_when": "The number of interviews exceeds the team’s capacity",
+        "status": "proposed"
+      },
+      "title": "Use interviews to gather plugin feedback",
+      "type": "Decision"
+    },
+    {
+      "content": "\nSome thoughts that do not need a schema yet.\n\n## Ideas\n\n- Make work feel beautiful and fun.\n",
+      "id": "node-work-notes",
+      "presentation": {
+        "icon": "✦"
+      },
+      "properties": {},
+      "title": "Work notes",
+      "type": "Node"
+    },
+    {
+      "content": "\n## Value check\n\nRead user feedback alongside activity: growth should still respect creative flow.\n",
+      "id": "outcome-plugin-wau",
+      "properties": {
+        "check_method": "Product owner checks the analytics report every Monday",
+        "review_required": false,
+        "signal": "Distinct musicians using the plugin in the trailing 7 days",
+        "target": "More than 500 weekly active users at the quarterly review",
+        "values": [
+          "value-creative-flow"
+        ]
+      },
+      "title": "Weekly active plugin users above 500",
+      "type": "Outcome"
+    },
+    {
+      "content": "\n## Run notes\n\nRecord each run's result and any reason the template needs to change.\n",
+      "id": "playbook-plugin-release",
+      "properties": {
+        "task_templates": [
+          {
+            "checklist": [
+              "Summarize user-visible changes",
+              "Check installation and upgrade instructions"
+            ],
+            "kind": "build",
+            "title": "Prepare release notes"
+          }
+        ],
+        "trigger": "A tested release candidate is approved for publication"
+      },
+      "title": "Plugin release",
+      "type": "Playbook"
+    },
+    {
+      "content": "\n## Signal notes\n\nCount each musician once per reporting window.\n",
+      "id": "sensor-plugin-analytics",
+      "properties": {
+        "cadence": "Every Monday before the weekly Bet review",
+        "connector": "manual",
+        "observation_format": "Week ending date and distinct active musicians over the trailing 7 days",
+        "source": "Weekly plugin activity analytics report"
+      },
+      "title": "Plugin activity report",
+      "type": "Sensor"
+    },
+    {
+      "content": "\n## Findings\n\nRecord evidence here once interviews are complete.\n",
+      "id": "task-pricing-interviews",
+      "properties": {
+        "bet": "bet-watermark-free-tier",
+        "checklist": [
+          {
+            "done": false,
+            "text": "Recruit five trial users"
+          },
+          {
+            "done": false,
+            "text": "Ask about free-tier and trial preferences"
+          },
+          {
+            "done": false,
+            "text": "Summarize evidence and reassess the Bet's confidence"
+          }
+        ],
+        "kind": "learn",
+        "owner": "Tim",
+        "stage": "backlog"
+      },
+      "title": "Interview five trial users about pricing",
+      "type": "Task"
+    },
+    {
+      "content": "\nSuccess should feel useful and unintrusive to musicians.\n",
+      "id": "value-creative-flow",
+      "properties": {
+        "kind": "aspiration",
+        "statement": "Tools that respect musicians' creative flow"
+      },
+      "title": "Respect creative flow",
+      "type": "Value"
+    }
+  ],
+  "schemaVersion": 1
+}

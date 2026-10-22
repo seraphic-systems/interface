@@ -56,8 +56,8 @@ a frontmatter field. Base fields are reserved and live outside `properties`.
 
 ## Structured schemas
 
-The machine-readable contract is [JSON Schema](../../seraph_zero_core/schemas/node.schema.json),
-with a shared base and one schema per specialized type in [schemas/](../../seraph_zero_core/schemas/).
+The machine-readable contract is [JSON Schema](../../schemas/node.schema.json),
+with a shared base and one schema per specialized type in [schemas/](../../schemas/).
 Those files are authoritative for structural validation; these Markdown pages
 explain the fields, examples, and workflow. Change the schema and its explanatory
 documentation together. See the [validation instructions](../../README.md).

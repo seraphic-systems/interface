@@ -1,6 +1,6 @@
 # Seraph Zero application
 
-This repo contains the React UI at `src/` and the Python node core at
+This repo contains the React UI at `src/` and the TypeScript node core at
 [`packages/core/`](packages/core/README.md). The private Markdown collection lives
 in the separate `seraph-zero-nodes` repository. UI and core can change together;
 content history stays in its own repo.
@@ -14,20 +14,26 @@ npm test
 npm run build
 ```
 
-The UI currently uses its existing starter data. This refactor relocates the
-core tooling; connecting the UI to the public dataset is separate work.
+The UI currently uses its existing starter data. The core tooling has migrated
+to TypeScript; connecting the UI to the public dataset is separate work.
 
 ## Core and local content
 
+Node.js 22.12 or newer is required. The core package is an npm workspace; Python
+is no longer needed.
+
 ```sh
-python3 -m venv .venv
-source .venv/bin/activate
-python -m pip install -e ./packages/core
-seraph-validate ../seraph-zero-nodes/nodes
-seraph-export ../seraph-zero-nodes/nodes --output /tmp/seraph-public/nodes.json
+npm ci
+npm run build:core
+npm run validate:nodes -- ../seraph-zero-nodes/nodes
+npm run export:public -- ../seraph-zero-nodes/nodes --output /tmp/seraph-public/nodes.json
 npm run test:core
 npm run check:contracts
 ```
+
+`npm test` runs both core and UI tests. `npm run build` builds both packages.
+Core has separate browser-safe and Node.js entry points; see its
+[README](packages/core/README.md) for record APIs and generated types.
 
 Keep private content checkouts, credentials, and logs outside public assets.
 When connecting a deployment, export in a trusted environment and deliver only

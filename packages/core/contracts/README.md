@@ -7,13 +7,13 @@ that a visitor must not learn about.
 
 ## Export
 
-After installing this core package (see ../../README.md):
+After building core from the application repo root (see ../README.md):
 
 ```sh
-seraph-export /path/to/nodes --output dist/nodes.json
+npx --no-install seraph-export /path/to/nodes --output dist/nodes.json
 # Or supply another complete source collection, or emit JSON to stdout:
-seraph-export /path/to/nodes --output /path/to/frontend/public/data/nodes.json
-seraph-export /path/to/nodes
+npx --no-install seraph-export /path/to/nodes --output /path/to/frontend/public/data/nodes.json
+npx --no-install seraph-export /path/to/nodes
 ```
 
 The complete source collection is validated first, including private nodes and
@@ -102,7 +102,7 @@ Import the generated declarations from this package in the frontend and deliver
 the JSON to `public/data/nodes.json` as part of a trusted build:
 
 ```ts
-import type { PublicDataset } from '../packages/core/seraph_zero_core/contracts/public-nodes';
+import type { PublicDataset } from '@seraph-zero/core';
 
 const response = await fetch('/data/nodes.json');
 if (!response.ok) throw new Error('Could not load nodes');
@@ -125,11 +125,11 @@ The source schemas are authoritative for field definitions. Regenerate both
 public contract files after changing them:
 
 ```sh
-seraph-generate-contract
-seraph-generate-contract --check
-python -m unittest discover -s tests -v
-seraph-validate /path/to/nodes
-seraph-export /path/to/nodes --output dist/nodes.json
+npm run generate:contracts
+npm run check:contracts
+npm run test:core
+npx --no-install seraph-validate /path/to/nodes
+npx --no-install seraph-export /path/to/nodes --output dist/nodes.json
 ```
 
 Commit generated schema/types in the application repo together with the generator, documentation, and

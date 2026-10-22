@@ -1,0 +1,56 @@
+{
+  "name": "@seraph-zero/core",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Seraph node contracts, validation, Markdown storage and public export",
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/src/index.d.ts",
+      "default": "./dist/src/index.js"
+    },
+    "./node": {
+      "types": "./dist/src/node.d.ts",
+      "node": "./dist/src/node.js"
+    },
+    "./contracts": {
+      "types": "./contracts/public-nodes.d.ts"
+    },
+    "./schemas/*": "./schemas/*"
+  },
+  "bin": {
+    "seraph-validate": "scripts/validate.mjs",
+    "seraph-export": "scripts/export.mjs",
+    "seraph-generate-contract": "scripts/generate.mjs"
+  },
+  "files": [
+    "dist",
+    "schemas",
+    "contracts",
+    "docs",
+    "README.md",
+    "scripts"
+  ],
+  "scripts": {
+    "build": "node scripts/clean.mjs && tsc -p tsconfig.json && node scripts/copy-contracts.mjs",
+    "typecheck": "tsc -p tsconfig.types.json",
+    "test": "npm run build && npm run typecheck && node --test tests/*.test.mjs",
+    "validate:nodes": "node scripts/validate.mjs",
+    "export:public": "node scripts/export.mjs",
+    "generate:contracts": "npm run build && node scripts/generate.mjs && node scripts/copy-contracts.mjs",
+    "check:contracts": "npm run build && node scripts/generate.mjs --check",
+    "prepack": "npm run build"
+  },
+  "dependencies": {
+    "ajv": "^8.17.1",
+    "ajv-formats": "^3.0.1",
+    "yaml": "^2.9.1"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.5",
+    "typescript": "^7.0.2"
+  }
+}

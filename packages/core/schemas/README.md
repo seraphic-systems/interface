@@ -3,7 +3,7 @@
 These schemas describe the complete private source collection. The separate
 [public contract](../contracts/README.md) describes filtered publication data;
 its JSON Schema and TypeScript types are generated from these field definitions.
-Regenerate them with `seraph-generate-contract` after changes.
+Regenerate them with `npm run generate:contracts` after changes.
 
 `node.schema.json` is the public entry point for JSON Schema draft 2020-12.
 It selects exactly one of `Node`, `Value`, `Aim`, `Outcome`, `Bet`, `Task`,

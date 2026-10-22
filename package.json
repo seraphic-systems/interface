@@ -4,13 +4,19 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "vite",
-    "build": "tsc && vite build --outDir build",
+    "dev": "npm run build:core && vite",
+    "build": "npm run build:core && npm run build:ui",
     "preview": "vite preview --outDir build",
-    "typecheck": "tsc --noEmit",
-    "test": "tsc && node --test tests/*.test.mjs",
-    "test:core": "python -m unittest discover -s packages/core/tests -v",
-    "check:contracts": "seraph-generate-contract --check"
+    "typecheck": "tsc --noEmit && npm run typecheck --workspace @seraph-zero/core",
+    "test": "npm run test:core && npm run test:ui",
+    "test:core": "npm test --workspace @seraph-zero/core",
+    "check:contracts": "npm run check:contracts --workspace @seraph-zero/core",
+    "build:core": "npm run build --workspace @seraph-zero/core",
+    "build:ui": "tsc && vite build --outDir build",
+    "test:ui": "tsc && node --test tests/*.test.mjs",
+    "validate:nodes": "node packages/core/scripts/validate.mjs",
+    "export:public": "node packages/core/scripts/export.mjs",
+    "generate:contracts": "npm run generate:contracts --workspace @seraph-zero/core"
   },
   "keywords": [],
   "author": "",
@@ -31,6 +37,14 @@
     "react-markdown": "^10.1.0",
     "remark-gfm": "^4.0.1",
     "three": "^0.186.1",
-    "yaml": "^2.9.1"
+    "yaml": "^2.9.1",
+    "@seraph-zero/core": "0.1.0"
+  },
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "engines": {
+    "node": ">=22.12.0"
   }
 }

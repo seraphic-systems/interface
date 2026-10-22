@@ -2,10 +2,11 @@ node_modules/
 dist/
 build/
 
-# Python core development
+# Legacy local environments
 .venv/
-__pycache__/
-*.py[cod]
-*.egg-info/
 # Generated publication snapshots belong outside source control.
 /public/data/nodes.json
+
+# Nested workspace build output
+packages/*/dist/
+*.tgz

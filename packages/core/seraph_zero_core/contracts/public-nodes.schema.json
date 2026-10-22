@@ -1,0 +1,953 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Public node dataset v1",
+  "description": "Generated public projection; see contracts/README.md for graph invariants.",
+  "type": "object",
+  "properties": {
+    "schemaVersion": {
+      "const": 1
+    },
+    "nodes": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/PublicNode"
+      }
+    },
+    "edges": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/PublicEdge"
+      },
+      "uniqueItems": true
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "nodes",
+    "edges"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "Node": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "\\S"
+        },
+        "type": {
+          "const": "Node"
+        },
+        "title": {
+          "type": "string"
+        },
+        "presentation": {
+          "type": "object",
+          "properties": {
+            "icon": {
+              "type": "string"
+            },
+            "cover": {
+              "type": "string"
+            }
+          },
+          "required": [],
+          "additionalProperties": false
+        },
+        "properties": {
+          "type": "object",
+          "properties": {},
+          "additionalProperties": false
+        },
+        "content": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "type",
+        "title",
+        "properties",
+        "content"
+      ],
+      "additionalProperties": false
+    },
+    "Value": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "\\S"
+        },
+        "type": {
+          "const": "Value"
+        },
+        "title": {
+          "type": "string"
+        },
+        "presentation": {
+          "type": "object",
+          "properties": {
+            "icon": {
+              "type": "string"
+            },
+            "cover": {
+              "type": "string"
+            }
+          },
+          "required": [],
+          "additionalProperties": false
+        },
+        "properties": {
+          "type": "object",
+          "properties": {
+            "statement": {
+              "type": "string"
+            },
+            "kind": {
+              "type": "string",
+              "enum": [
+                "aspiration",
+                "guardrail"
+              ]
+            }
+          },
+          "required": [
+            "statement",
+            "kind"
+          ],
+          "additionalProperties": false
+        },
+        "content": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "type",
+        "title",
+        "properties",
+        "content"
+      ],
+      "additionalProperties": false
+    },
+    "Aim": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "\\S"
+        },
+        "type": {
+          "const": "Aim"
+        },
+        "title": {
+          "type": "string"
+        },
+        "presentation": {
+          "type": "object",
+          "properties": {
+            "icon": {
+              "type": "string"
+            },
+            "cover": {
+              "type": "string"
+            }
+          },
+          "required": [],
+          "additionalProperties": false
+        },
+        "properties": {
+          "type": "object",
+          "properties": {
+            "values": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "pattern": "\\S",
+                "x-node-type": "Value"
+              },
+              "minItems": 0,
+              "uniqueItems": true
+            },
+            "direction": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "direction"
+          ],
+          "additionalProperties": false
+        },
+        "content": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "type",
+        "title",
+        "properties",
+        "content"
+      ],
+      "additionalProperties": false
+    },
+    "Outcome": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "\\S"
+        },
+        "type": {
+          "const": "Outcome"
+        },
+        "title": {
+          "type": "string"
+        },
+        "presentation": {
+          "type": "object",
+          "properties": {
+            "icon": {
+              "type": "string"
+            },
+            "cover": {
+              "type": "string"
+            }
+          },
+          "required": [],
+          "additionalProperties": false
+        },
+        "properties": {
+          "type": "object",
+          "properties": {
+            "values": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "pattern": "\\S",
+                "x-node-type": "Value"
+              },
+              "minItems": 0,
+              "uniqueItems": true
+            },
+            "aims": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "pattern": "\\S",
+                "x-node-type": "Aim"
+              },
+              "minItems": 0,
+              "uniqueItems": true
+            },
+            "signal": {
+              "type": "string"
+            },
+            "target": {
+              "type": "string"
+            },
+            "check_method": {
+              "type": "string"
+            },
+            "sensor": {
+              "type": "string",
+              "pattern": "\\S",
+              "x-node-type": "Sensor"
+            },
+            "transformation": {
+              "type": "string"
+            },
+            "review_required": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "signal",
+            "target",
+            "check_method"
+          ],
+          "additionalProperties": false
+        },
+        "content": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "type",
+        "title",
+        "properties",
+        "content"
+      ],
+      "additionalProperties": false
+    },
+    "Bet": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "\\S"
+        },
+        "type": {
+          "const": "Bet"
+        },
+        "title": {
+          "type": "string"
+        },
+        "presentation": {
+          "type": "object",
+          "properties": {
+            "icon": {
+              "type": "string"
+            },
+            "cover": {
+              "type": "string"
+            }
+          },
+          "required": [],
+          "additionalProperties": false
+        },
+        "properties": {
+          "type": "object",
+          "properties": {
+            "outcome": {
+              "type": "string",
+              "pattern": "\\S",
+              "x-node-type": "Outcome"
+            },
+            "parent_bet": {
+              "type": "string",
+              "pattern": "\\S",
+              "x-node-type": "Bet"
+            },
+            "expectation": {
+              "type": "string"
+            },
+            "confidence": {
+              "type": "string",
+              "enum": [
+                "low",
+                "medium",
+                "high"
+              ]
+            },
+            "key_unknowns": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "minItems": 0
+            },
+            "assumptions": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "pattern": "\\S",
+                "x-node-type": "Assumption"
+              },
+              "minItems": 0,
+              "uniqueItems": true
+            },
+            "impact": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 3
+            },
+            "learning": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 3
+            },
+            "cost": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 3
+            },
+            "guardrail_risk": {
+              "type": "boolean"
+            },
+            "guardrail_values": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "pattern": "\\S",
+                "x-node-type": "Value"
+              },
+              "minItems": 0,
+              "uniqueItems": true
+            },
+            "guardrail_discussion": {
+              "type": "string"
+            },
+            "status": {
+              "type": "string",
+              "enum": [
+                "active",
+                "parked"
+              ]
+            },
+            "stage": {
+              "type": "string",
+              "enum": [
+                "backlog",
+                "in_progress",
+                "done",
+                "checked"
+              ]
+            },
+            "observed_result": {
+              "type": "string"
+            },
+            "surprise": {
+              "type": "string",
+              "enum": [
+                "as_expected",
+                "better_than_expected",
+                "worse_than_expected"
+              ]
+            },
+            "review_required": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "expectation",
+            "confidence",
+            "impact",
+            "learning",
+            "cost",
+            "guardrail_risk",
+            "status",
+            "stage"
+          ],
+          "additionalProperties": false
+        },
+        "content": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "type",
+        "title",
+        "properties",
+        "content"
+      ],
+      "additionalProperties": false
+    },
+    "Task": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "\\S"
+        },
+        "type": {
+          "const": "Task"
+        },
+        "title": {
+          "type": "string"
+        },
+        "presentation": {
+          "type": "object",
+          "properties": {
+            "icon": {
+              "type": "string"
+            },
+            "cover": {
+              "type": "string"
+            }
+          },
+          "required": [],
+          "additionalProperties": false
+        },
+        "properties": {
+          "type": "object",
+          "properties": {
+            "bet": {
+              "type": "string",
+              "pattern": "\\S",
+              "x-node-type": "Bet"
+            },
+            "playbook": {
+              "type": "string",
+              "pattern": "\\S",
+              "x-node-type": "Playbook"
+            },
+            "playbook_run": {
+              "type": "string"
+            },
+            "kind": {
+              "type": "string",
+              "enum": [
+                "build",
+                "learn"
+              ]
+            },
+            "checklist": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "text": {
+                    "type": "string"
+                  },
+                  "done": {
+                    "type": "boolean"
+                  }
+                },
+                "required": [
+                  "text",
+                  "done"
+                ],
+                "additionalProperties": false
+              },
+              "minItems": 1
+            },
+            "owner": {
+              "type": "string"
+            },
+            "stage": {
+              "type": "string",
+              "enum": [
+                "backlog",
+                "in_progress",
+                "done",
+                "checked"
+              ]
+            }
+          },
+          "required": [
+            "kind",
+            "checklist",
+            "owner",
+            "stage"
+          ],
+          "additionalProperties": false
+        },
+        "content": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "type",
+        "title",
+        "properties",
+        "content"
+      ],
+      "additionalProperties": false
+    },
+    "Assumption": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "\\S"
+        },
+        "type": {
+          "const": "Assumption"
+        },
+        "title": {
+          "type": "string"
+        },
+        "presentation": {
+          "type": "object",
+          "properties": {
+            "icon": {
+              "type": "string"
+            },
+            "cover": {
+              "type": "string"
+            }
+          },
+          "required": [],
+          "additionalProperties": false
+        },
+        "properties": {
+          "type": "object",
+          "properties": {
+            "statement": {
+              "type": "string"
+            },
+            "confidence": {
+              "type": "string",
+              "enum": [
+                "low",
+                "medium",
+                "high"
+              ]
+            },
+            "evidence": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "minItems": 0
+            }
+          },
+          "required": [
+            "statement",
+            "confidence"
+          ],
+          "additionalProperties": false
+        },
+        "content": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "type",
+        "title",
+        "properties",
+        "content"
+      ],
+      "additionalProperties": false
+    },
+    "Sensor": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "\\S"
+        },
+        "type": {
+          "const": "Sensor"
+        },
+        "title": {
+          "type": "string"
+        },
+        "presentation": {
+          "type": "object",
+          "properties": {
+            "icon": {
+              "type": "string"
+            },
+            "cover": {
+              "type": "string"
+            }
+          },
+          "required": [],
+          "additionalProperties": false
+        },
+        "properties": {
+          "type": "object",
+          "properties": {
+            "connector": {
+              "type": "string"
+            },
+            "source": {
+              "type": "string"
+            },
+            "cadence": {
+              "type": "string"
+            },
+            "observation_format": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "connector",
+            "source",
+            "cadence",
+            "observation_format"
+          ],
+          "additionalProperties": false
+        },
+        "content": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "type",
+        "title",
+        "properties",
+        "content"
+      ],
+      "additionalProperties": false
+    },
+    "Playbook": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "\\S"
+        },
+        "type": {
+          "const": "Playbook"
+        },
+        "title": {
+          "type": "string"
+        },
+        "presentation": {
+          "type": "object",
+          "properties": {
+            "icon": {
+              "type": "string"
+            },
+            "cover": {
+              "type": "string"
+            }
+          },
+          "required": [],
+          "additionalProperties": false
+        },
+        "properties": {
+          "type": "object",
+          "properties": {
+            "trigger": {
+              "type": "string"
+            },
+            "task_templates": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "title": {
+                    "type": "string"
+                  },
+                  "kind": {
+                    "type": "string",
+                    "enum": [
+                      "build",
+                      "learn"
+                    ]
+                  },
+                  "owner": {
+                    "type": "string"
+                  },
+                  "checklist": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    },
+                    "minItems": 1
+                  }
+                },
+                "required": [
+                  "title",
+                  "kind",
+                  "checklist"
+                ],
+                "additionalProperties": false
+              },
+              "minItems": 1
+            }
+          },
+          "required": [
+            "trigger",
+            "task_templates"
+          ],
+          "additionalProperties": false
+        },
+        "content": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "type",
+        "title",
+        "properties",
+        "content"
+      ],
+      "additionalProperties": false
+    },
+    "Decision": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "\\S"
+        },
+        "type": {
+          "const": "Decision"
+        },
+        "title": {
+          "type": "string",
+          "pattern": "\\S"
+        },
+        "presentation": {
+          "type": "object",
+          "properties": {
+            "icon": {
+              "type": "string"
+            },
+            "cover": {
+              "type": "string"
+            }
+          },
+          "required": [],
+          "additionalProperties": false
+        },
+        "properties": {
+          "type": "object",
+          "properties": {
+            "status": {
+              "type": "string",
+              "enum": [
+                "proposed",
+                "accepted",
+                "rejected",
+                "superseded"
+              ]
+            },
+            "context": {
+              "type": "string",
+              "pattern": "\\S"
+            },
+            "decision": {
+              "type": "string",
+              "pattern": "\\S"
+            },
+            "rationale": {
+              "type": "string",
+              "pattern": "\\S"
+            },
+            "decision_maker": {
+              "type": "string",
+              "pattern": "\\S"
+            },
+            "consequences": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "pattern": "\\S"
+              },
+              "minItems": 1
+            },
+            "decided_on": {
+              "type": "string",
+              "format": "date"
+            },
+            "alternatives": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "option": {
+                    "type": "string",
+                    "pattern": "\\S"
+                  },
+                  "tradeoff": {
+                    "type": "string",
+                    "pattern": "\\S"
+                  }
+                },
+                "required": [
+                  "option",
+                  "tradeoff"
+                ],
+                "additionalProperties": false
+              },
+              "minItems": 0
+            },
+            "related_nodes": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "pattern": "\\S",
+                "x-node-type": "Node"
+              },
+              "minItems": 0,
+              "uniqueItems": true
+            },
+            "supersedes": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "pattern": "\\S",
+                "x-node-type": "Decision"
+              },
+              "minItems": 0,
+              "uniqueItems": true
+            },
+            "review_when": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "status",
+            "context",
+            "decision",
+            "rationale",
+            "consequences",
+            "decision_maker"
+          ],
+          "additionalProperties": false
+        },
+        "content": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "type",
+        "title",
+        "properties",
+        "content"
+      ],
+      "additionalProperties": false
+    },
+    "PublicNode": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/Node"
+        },
+        {
+          "$ref": "#/$defs/Value"
+        },
+        {
+          "$ref": "#/$defs/Aim"
+        },
+        {
+          "$ref": "#/$defs/Outcome"
+        },
+        {
+          "$ref": "#/$defs/Bet"
+        },
+        {
+          "$ref": "#/$defs/Task"
+        },
+        {
+          "$ref": "#/$defs/Assumption"
+        },
+        {
+          "$ref": "#/$defs/Sensor"
+        },
+        {
+          "$ref": "#/$defs/Playbook"
+        },
+        {
+          "$ref": "#/$defs/Decision"
+        }
+      ]
+    },
+    "PublicEdge": {
+      "type": "object",
+      "properties": {
+        "source": {
+          "type": "string",
+          "pattern": "\\S"
+        },
+        "field": {
+          "type": "string",
+          "pattern": "\\S"
+        },
+        "target": {
+          "type": "string",
+          "pattern": "\\S"
+        }
+      },
+      "required": [
+        "source",
+        "field",
+        "target"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

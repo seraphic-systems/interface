@@ -1,0 +1,193 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Bet",
+  "allOf": [
+    {
+      "$ref": "common.schema.json#/$defs/base"
+    }
+  ],
+  "properties": {
+    "type": {
+      "const": "Bet"
+    },
+    "properties": {
+      "type": "object",
+      "properties": {
+        "outcome": {
+          "$ref": "common.schema.json#/$defs/id",
+          "x-node-type": "Outcome"
+        },
+        "parent_bet": {
+          "$ref": "common.schema.json#/$defs/id",
+          "x-node-type": "Bet"
+        },
+        "expectation": {
+          "type": "string"
+        },
+        "confidence": {
+          "type": "string",
+          "enum": [
+            "low",
+            "medium",
+            "high"
+          ]
+        },
+        "key_unknowns": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 0
+        },
+        "assumptions": {
+          "type": "array",
+          "items": {
+            "$ref": "common.schema.json#/$defs/id",
+            "x-node-type": "Assumption"
+          },
+          "minItems": 0,
+          "uniqueItems": true
+        },
+        "impact": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 3
+        },
+        "learning": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 3
+        },
+        "cost": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 3
+        },
+        "guardrail_risk": {
+          "type": "boolean"
+        },
+        "guardrail_values": {
+          "type": "array",
+          "items": {
+            "$ref": "common.schema.json#/$defs/id",
+            "x-node-type": "Value"
+          },
+          "minItems": 0,
+          "uniqueItems": true
+        },
+        "guardrail_discussion": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "active",
+            "parked"
+          ]
+        },
+        "stage": {
+          "type": "string",
+          "enum": [
+            "backlog",
+            "in_progress",
+            "done",
+            "checked"
+          ]
+        },
+        "observed_result": {
+          "type": "string"
+        },
+        "surprise": {
+          "type": "string",
+          "enum": [
+            "as_expected",
+            "better_than_expected",
+            "worse_than_expected"
+          ]
+        },
+        "review_required": {
+          "type": "boolean",
+          "default": false
+        }
+      },
+      "required": [
+        "expectation",
+        "confidence",
+        "impact",
+        "learning",
+        "cost",
+        "guardrail_risk",
+        "status",
+        "stage"
+      ],
+      "additionalProperties": false,
+      "oneOf": [
+        {
+          "required": [
+            "outcome"
+          ],
+          "not": {
+            "required": [
+              "parent_bet"
+            ]
+          }
+        },
+        {
+          "required": [
+            "parent_bet"
+          ],
+          "not": {
+            "required": [
+              "outcome"
+            ]
+          }
+        }
+      ],
+      "allOf": [
+        {
+          "if": {
+            "required": [
+              "guardrail_risk"
+            ],
+            "properties": {
+              "guardrail_risk": {
+                "const": true
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "guardrail_values"
+            ],
+            "properties": {
+              "guardrail_values": {
+                "minItems": 1
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "required": [
+              "stage"
+            ],
+            "properties": {
+              "stage": {
+                "const": "checked"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "observed_result",
+              "surprise"
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "required": [
+    "properties"
+  ]
+}

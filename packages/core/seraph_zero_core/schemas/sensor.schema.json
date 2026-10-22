@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Sensor",
+  "allOf": [
+    {
+      "$ref": "common.schema.json#/$defs/base"
+    }
+  ],
+  "properties": {
+    "type": {
+      "const": "Sensor"
+    },
+    "properties": {
+      "type": "object",
+      "properties": {
+        "connector": {
+          "type": "string"
+        },
+        "source": {
+          "type": "string"
+        },
+        "cadence": {
+          "type": "string"
+        },
+        "observation_format": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "connector",
+        "source",
+        "cadence",
+        "observation_format"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "properties"
+  ]
+}

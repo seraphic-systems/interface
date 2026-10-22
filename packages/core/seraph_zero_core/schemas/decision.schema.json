@@ -1,0 +1,164 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Decision",
+  "allOf": [
+    {
+      "$ref": "common.schema.json#/$defs/base"
+    }
+  ],
+  "properties": {
+    "type": {
+      "const": "Decision"
+    },
+    "properties": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": [
+            "proposed",
+            "accepted",
+            "rejected",
+            "superseded"
+          ]
+        },
+        "context": {
+          "type": "string",
+          "pattern": "\\S"
+        },
+        "decision": {
+          "type": "string",
+          "pattern": "\\S"
+        },
+        "rationale": {
+          "type": "string",
+          "pattern": "\\S"
+        },
+        "decision_maker": {
+          "type": "string",
+          "pattern": "\\S"
+        },
+        "consequences": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "\\S"
+          },
+          "minItems": 1
+        },
+        "decided_on": {
+          "type": "string",
+          "format": "date"
+        },
+        "alternatives": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "option": {
+                "type": "string",
+                "pattern": "\\S"
+              },
+              "tradeoff": {
+                "type": "string",
+                "pattern": "\\S"
+              }
+            },
+            "required": [
+              "option",
+              "tradeoff"
+            ],
+            "additionalProperties": false
+          },
+          "minItems": 0
+        },
+        "related_nodes": {
+          "type": "array",
+          "items": {
+            "$ref": "common.schema.json#/$defs/id",
+            "x-node-type": "Node"
+          },
+          "minItems": 0,
+          "uniqueItems": true
+        },
+        "supersedes": {
+          "type": "array",
+          "items": {
+            "$ref": "common.schema.json#/$defs/id",
+            "x-node-type": "Decision"
+          },
+          "minItems": 0,
+          "uniqueItems": true
+        },
+        "review_when": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "status",
+        "context",
+        "decision",
+        "rationale",
+        "consequences",
+        "decision_maker"
+      ],
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "required": [
+              "status"
+            ],
+            "properties": {
+              "status": {
+                "const": "proposed"
+              }
+            }
+          },
+          "then": {
+            "not": {
+              "required": [
+                "decided_on"
+              ]
+            }
+          },
+          "else": {
+            "required": [
+              "decided_on"
+            ]
+          }
+        },
+        {
+          "if": {
+            "required": [
+              "supersedes"
+            ],
+            "properties": {
+              "supersedes": {
+                "minItems": 1
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "status": {
+                "type": "string",
+                "enum": [
+                  "accepted",
+                  "superseded"
+                ]
+              }
+            }
+          }
+        }
+      ]
+    },
+    "title": {
+      "type": "string",
+      "pattern": "\\S"
+    }
+  },
+  "required": [
+    "properties"
+  ]
+}

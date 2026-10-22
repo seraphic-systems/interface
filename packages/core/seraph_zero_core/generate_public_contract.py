@@ -1,0 +1,146 @@
+#!/usr/bin/env python3
+"""Generate the standalone public JSON Schema and TypeScript declarations."""
+
+import argparse
+import copy
+import json
+import sys
+from pathlib import Path
+
+from .validate_nodes import PACKAGE, SCHEMAS
+
+CONTRACTS = PACKAGE / 'contracts'
+VERSION = 1
+
+
+def reference_type(definition):
+    return definition.get('items', definition).get('x-node-type')
+
+
+def inline_common(value, common):
+    if isinstance(value, list):
+        return [inline_common(item, common) for item in value]
+    if not isinstance(value, dict):
+        return value
+    value = copy.deepcopy(value)
+    if '$ref' in value:
+        ref = value.pop('$ref')
+        if not ref.startswith('common.schema.json#/$defs/'):
+            raise ValueError(f'Unsupported public contract reference: {ref}')
+        value = {**copy.deepcopy(common['$defs'][ref.rsplit('/', 1)[1]]), **value}
+    return {key: inline_common(item, common) for key, item in value.items()
+            if key != 'default'}
+
+
+def build_schema():
+    common = json.loads((SCHEMAS / 'common.schema.json').read_text())
+    entry = json.loads((SCHEMAS / 'node.schema.json').read_text())
+    definitions = {}
+    for branch in entry['oneOf']:
+        source = json.loads((SCHEMAS / branch['$ref']).read_text()) if '$ref' in branch else branch
+        name = source['properties']['type']['const']
+        fields = copy.deepcopy(common['$defs']['base']['properties'])
+        fields.update(copy.deepcopy(source['properties']))
+        fields.pop('visibility')
+        if name == 'Node':
+            # Custom property semantics are unknown; explicitly opt them in before publishing.
+            fields['properties'] = {'type': 'object', 'properties': {},
+                                    'additionalProperties': False}
+        else:
+            props = fields['properties']
+            # Keep individual field constraints, but source workflow conditions cannot
+            # describe a projection with missing private relationships.
+            props = {key: value for key, value in props.items()
+                     if key in ('type', 'properties', 'required', 'additionalProperties')}
+            refs = {key for key, value in props['properties'].items() if reference_type(value)}
+            props['required'] = [key for key in props.get('required', []) if key not in refs]
+            for key in refs:
+                if props['properties'][key].get('type') == 'array':
+                    props['properties'][key]['minItems'] = 0
+            fields['properties'] = props
+        definitions[name] = inline_common({
+            'type': 'object', 'properties': fields,
+            'required': ['id', 'type', 'title', 'properties', 'content'],
+            'additionalProperties': False,
+        }, common)
+    definitions['PublicNode'] = {'oneOf': [{'$ref': f'#/$defs/{name}'} for name in definitions]}
+    definitions['PublicEdge'] = {
+        'type': 'object', 'properties': {
+            'source': copy.deepcopy(common['$defs']['id']),
+            'field': {'type': 'string', 'pattern': r'\S'},
+            'target': copy.deepcopy(common['$defs']['id']),
+        },
+        'required': ['source', 'field', 'target'], 'additionalProperties': False,
+    }
+    return {
+        '$schema': 'https://json-schema.org/draft/2020-12/schema',
+        'title': 'Public node dataset v1',
+        'description': 'Generated public projection; see contracts/README.md for graph invariants.',
+        'type': 'object', 'properties': {
+            'schemaVersion': {'const': VERSION},
+            'nodes': {'type': 'array', 'items': {'$ref': '#/$defs/PublicNode'}},
+            'edges': {'type': 'array', 'items': {'$ref': '#/$defs/PublicEdge'}, 'uniqueItems': True},
+        },
+        'required': ['schemaVersion', 'nodes', 'edges'], 'additionalProperties': False,
+        '$defs': definitions,
+    }
+
+
+def ts_type(schema):
+    """Render the data types used by this contract; validation stays in JSON Schema."""
+    if '$ref' in schema:
+        return schema['$ref'].rsplit('/', 1)[1]
+    if 'const' in schema:
+        return json.dumps(schema['const'])
+    if 'enum' in schema:
+        return ' | '.join(json.dumps(item) for item in schema['enum'])
+    if 'oneOf' in schema:
+        return ' | '.join(ts_type(item) for item in schema['oneOf'])
+    kind = schema.get('type')
+    if kind == 'object':
+        fields = schema.get('properties', {})
+        if not fields:
+            return 'Record<string, never>'
+        required = schema.get('required', [])
+        return '{ ' + ' '.join(
+            f'{json.dumps(key)}{"" if key in required else "?"}: {ts_type(value)};'
+            for key, value in fields.items()) + ' }'
+    if kind == 'array':
+        return f'Array<{ts_type(schema["items"])}>'
+    return {'string': 'string', 'boolean': 'boolean', 'integer': 'number',
+            'number': 'number', 'null': 'null'}[kind]
+
+
+def generated_files():
+    schema = build_schema()
+    declarations = ['// Generated by seraph-generate-contract. Do not edit.',
+                    '// JSON Schema and export validation enforce constraints beyond these types.', '']
+    for name, definition in schema['$defs'].items():
+        declarations.append(f'export type {name} = {ts_type(definition)};')
+    declarations.append(f'export type PublicDataset = {ts_type(schema)};')
+    return {
+        CONTRACTS / 'public-nodes.schema.json': json.dumps(schema, indent=2, ensure_ascii=False) + '\n',
+        CONTRACTS / 'public-nodes.d.ts': '\n'.join(declarations) + '\n',
+    }
+
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--check', action='store_true', help='fail if committed contracts are stale')
+    args = parser.parse_args()
+    stale = []
+    for path, content in generated_files().items():
+        if args.check:
+            if not path.exists() or path.read_text() != content:
+                stale.append(str(path.relative_to(PACKAGE)))
+        else:
+            path.parent.mkdir(parents=True, exist_ok=True)
+            path.write_text(content, encoding='utf-8')
+    if stale:
+        print('Regenerate public contracts: ' + ', '.join(stale), file=sys.stderr)
+        return 1
+    return 0
+
+
+if __name__ == '__main__':
+    sys.exit(main())

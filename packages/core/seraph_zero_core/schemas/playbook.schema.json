@@ -1,0 +1,65 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Playbook",
+  "allOf": [
+    {
+      "$ref": "common.schema.json#/$defs/base"
+    }
+  ],
+  "properties": {
+    "type": {
+      "const": "Playbook"
+    },
+    "properties": {
+      "type": "object",
+      "properties": {
+        "trigger": {
+          "type": "string"
+        },
+        "task_templates": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "title": {
+                "type": "string"
+              },
+              "kind": {
+                "type": "string",
+                "enum": [
+                  "build",
+                  "learn"
+                ]
+              },
+              "owner": {
+                "type": "string"
+              },
+              "checklist": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "minItems": 1
+              }
+            },
+            "required": [
+              "title",
+              "kind",
+              "checklist"
+            ],
+            "additionalProperties": false
+          },
+          "minItems": 1
+        }
+      },
+      "required": [
+        "trigger",
+        "task_templates"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "properties"
+  ]
+}

@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Assumption",
+  "allOf": [
+    {
+      "$ref": "common.schema.json#/$defs/base"
+    }
+  ],
+  "properties": {
+    "type": {
+      "const": "Assumption"
+    },
+    "properties": {
+      "type": "object",
+      "properties": {
+        "statement": {
+          "type": "string"
+        },
+        "confidence": {
+          "type": "string",
+          "enum": [
+            "low",
+            "medium",
+            "high"
+          ]
+        },
+        "evidence": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 0
+        }
+      },
+      "required": [
+        "statement",
+        "confidence"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "properties"
+  ]
+}

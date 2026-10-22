@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Node record",
+  "description": "Canonical parsed node, including the Markdown body as content.",
+  "oneOf": [
+    {
+      "allOf": [
+        {
+          "$ref": "common.schema.json#/$defs/base"
+        }
+      ],
+      "properties": {
+        "type": {
+          "const": "Node"
+        }
+      }
+    },
+    {
+      "$ref": "value.schema.json"
+    },
+    {
+      "$ref": "aim.schema.json"
+    },
+    {
+      "$ref": "outcome.schema.json"
+    },
+    {
+      "$ref": "bet.schema.json"
+    },
+    {
+      "$ref": "task.schema.json"
+    },
+    {
+      "$ref": "assumption.schema.json"
+    },
+    {
+      "$ref": "sensor.schema.json"
+    },
+    {
+      "$ref": "playbook.schema.json"
+    },
+    {
+      "$ref": "decision.schema.json"
+    }
+  ]
+}

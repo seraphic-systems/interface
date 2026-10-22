@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Aim",
+  "allOf": [
+    {
+      "$ref": "common.schema.json#/$defs/base"
+    }
+  ],
+  "properties": {
+    "type": {
+      "const": "Aim"
+    },
+    "properties": {
+      "type": "object",
+      "properties": {
+        "values": {
+          "type": "array",
+          "items": {
+            "$ref": "common.schema.json#/$defs/id",
+            "x-node-type": "Value"
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "direction": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "values",
+        "direction"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "properties"
+  ]
+}

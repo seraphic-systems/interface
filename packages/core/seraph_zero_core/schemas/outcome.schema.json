@@ -1,0 +1,93 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Outcome",
+  "allOf": [
+    {
+      "$ref": "common.schema.json#/$defs/base"
+    }
+  ],
+  "properties": {
+    "type": {
+      "const": "Outcome"
+    },
+    "properties": {
+      "type": "object",
+      "properties": {
+        "values": {
+          "type": "array",
+          "items": {
+            "$ref": "common.schema.json#/$defs/id",
+            "x-node-type": "Value"
+          },
+          "minItems": 0,
+          "uniqueItems": true
+        },
+        "aims": {
+          "type": "array",
+          "items": {
+            "$ref": "common.schema.json#/$defs/id",
+            "x-node-type": "Aim"
+          },
+          "minItems": 0,
+          "uniqueItems": true
+        },
+        "signal": {
+          "type": "string"
+        },
+        "target": {
+          "type": "string"
+        },
+        "check_method": {
+          "type": "string"
+        },
+        "sensor": {
+          "$ref": "common.schema.json#/$defs/id",
+          "x-node-type": "Sensor"
+        },
+        "transformation": {
+          "type": "string"
+        },
+        "review_required": {
+          "type": "boolean",
+          "default": false
+        }
+      },
+      "required": [
+        "signal",
+        "target",
+        "check_method"
+      ],
+      "additionalProperties": false,
+      "anyOf": [
+        {
+          "required": [
+            "values"
+          ],
+          "properties": {
+            "values": {
+              "minItems": 1
+            }
+          }
+        },
+        {
+          "required": [
+            "aims"
+          ],
+          "properties": {
+            "aims": {
+              "minItems": 1
+            }
+          }
+        }
+      ],
+      "dependentRequired": {
+        "transformation": [
+          "sensor"
+        ]
+      }
+    }
+  },
+  "required": [
+    "properties"
+  ]
+}

@@ -1,0 +1,72 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$defs": {
+    "id": {
+      "type": "string",
+      "pattern": "\\S"
+    },
+    "base": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "common.schema.json#/$defs/id"
+        },
+        "type": {
+          "type": "string",
+          "pattern": "\\S"
+        },
+        "title": {
+          "type": "string"
+        },
+        "visibility": {
+          "type": "string",
+          "enum": [
+            "private",
+            "public"
+          ],
+          "default": "private"
+        },
+        "presentation": {
+          "type": "object",
+          "properties": {
+            "icon": {
+              "type": "string"
+            },
+            "cover": {
+              "type": "string"
+            }
+          },
+          "required": [],
+          "additionalProperties": false
+        },
+        "properties": {
+          "type": "object",
+          "default": {},
+          "propertyNames": {
+            "not": {
+              "enum": [
+                "id",
+                "type",
+                "title",
+                "visibility",
+                "presentation",
+                "properties",
+                "content"
+              ]
+            }
+          }
+        },
+        "content": {
+          "type": "string",
+          "default": ""
+        }
+      },
+      "required": [
+        "id",
+        "type",
+        "title"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

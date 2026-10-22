@@ -8,7 +8,9 @@
     "build": "tsc && vite build --outDir build",
     "preview": "vite preview --outDir build",
     "typecheck": "tsc --noEmit",
-    "test": "tsc && node --test tests/*.test.mjs"
+    "test": "tsc && node --test tests/*.test.mjs",
+    "test:core": "python -m unittest discover -s packages/core/tests -v",
+    "check:contracts": "seraph-generate-contract --check"
   },
   "keywords": [],
   "author": "",

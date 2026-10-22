@@ -1,0 +1,109 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Task",
+  "allOf": [
+    {
+      "$ref": "common.schema.json#/$defs/base"
+    }
+  ],
+  "properties": {
+    "type": {
+      "const": "Task"
+    },
+    "properties": {
+      "type": "object",
+      "properties": {
+        "bet": {
+          "$ref": "common.schema.json#/$defs/id",
+          "x-node-type": "Bet"
+        },
+        "playbook": {
+          "$ref": "common.schema.json#/$defs/id",
+          "x-node-type": "Playbook"
+        },
+        "playbook_run": {
+          "type": "string"
+        },
+        "kind": {
+          "type": "string",
+          "enum": [
+            "build",
+            "learn"
+          ]
+        },
+        "checklist": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "text": {
+                "type": "string"
+              },
+              "done": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "text",
+              "done"
+            ],
+            "additionalProperties": false
+          },
+          "minItems": 1
+        },
+        "owner": {
+          "type": "string"
+        },
+        "stage": {
+          "type": "string",
+          "enum": [
+            "backlog",
+            "in_progress",
+            "done",
+            "checked"
+          ]
+        }
+      },
+      "required": [
+        "kind",
+        "checklist",
+        "owner",
+        "stage"
+      ],
+      "additionalProperties": false,
+      "oneOf": [
+        {
+          "required": [
+            "bet"
+          ],
+          "not": {
+            "required": [
+              "playbook"
+            ]
+          }
+        },
+        {
+          "required": [
+            "playbook"
+          ],
+          "not": {
+            "required": [
+              "bet"
+            ]
+          }
+        }
+      ],
+      "dependentRequired": {
+        "playbook": [
+          "playbook_run"
+        ],
+        "playbook_run": [
+          "playbook"
+        ]
+      }
+    }
+  },
+  "required": [
+    "properties"
+  ]
+}

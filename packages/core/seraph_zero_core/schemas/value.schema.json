@@ -1,0 +1,37 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Value",
+  "allOf": [
+    {
+      "$ref": "common.schema.json#/$defs/base"
+    }
+  ],
+  "properties": {
+    "type": {
+      "const": "Value"
+    },
+    "properties": {
+      "type": "object",
+      "properties": {
+        "statement": {
+          "type": "string"
+        },
+        "kind": {
+          "type": "string",
+          "enum": [
+            "aspiration",
+            "guardrail"
+          ]
+        }
+      },
+      "required": [
+        "statement",
+        "kind"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "properties"
+  ]
+}

@@ -1,0 +1,294 @@
+{
+  "edges": [
+    {
+      "field": "values",
+      "source": "aim-community",
+      "target": "value-communion"
+    },
+    {
+      "field": "values",
+      "source": "aim-community",
+      "target": "value-creation"
+    },
+    {
+      "field": "values",
+      "source": "aim-digital-world",
+      "target": "value-creation"
+    },
+    {
+      "field": "values",
+      "source": "aim-digital-world",
+      "target": "value-embodiment"
+    },
+    {
+      "field": "outcome",
+      "source": "bet-first-light-v1",
+      "target": "outcome-email-list"
+    },
+    {
+      "field": "aims",
+      "source": "outcome-email-list",
+      "target": "aim-community"
+    },
+    {
+      "field": "aims",
+      "source": "outcome-email-list",
+      "target": "aim-digital-world"
+    },
+    {
+      "field": "aims",
+      "source": "outcome-first-gathering",
+      "target": "aim-community"
+    },
+    {
+      "field": "values",
+      "source": "outcome-first-gathering",
+      "target": "value-embodiment"
+    },
+    {
+      "field": "aims",
+      "source": "outcome-first-supporters",
+      "target": "aim-community"
+    },
+    {
+      "field": "aims",
+      "source": "outcome-people-who-want-in",
+      "target": "aim-community"
+    },
+    {
+      "field": "aims",
+      "source": "outcome-public-system-view",
+      "target": "aim-digital-world"
+    },
+    {
+      "field": "bet",
+      "source": "task-first-light-early-readers",
+      "target": "bet-first-light-v1"
+    },
+    {
+      "field": "bet",
+      "source": "task-first-light-site",
+      "target": "bet-first-light-v1"
+    }
+  ],
+  "nodes": [
+    {
+      "content": "\n## Why this direction\n\nThe node starts as one person's practice. Communion asks that people be known\nand stay; Creation asks that we make things for someone real. This Aim points\ntoward the moment those people are actual members, not an audience.\n\nDifferent ways people can be part of the community (members, supporters,\ncollaborators, event-goers) is an open question. It belongs to the first\ncommunity Bet as a key unknown, not to this Aim.\n\n## Review notes\n\nAgreed with Tim on 2026-10-20. Review yearly.\n",
+      "id": "aim-community",
+      "properties": {
+        "direction": "Grow from a solo practice into a community of people who are known and make things together.",
+        "values": [
+          "value-communion",
+          "value-creation"
+        ]
+      },
+      "title": "Community",
+      "type": "Aim"
+    },
+    {
+      "content": "\n## Why this direction\n\nThe digital world is where the node's inner life (its Vision, its values, its\nplans) becomes visible to people who are not in the room. Embodiment keeps it\nhonest: the site should point back to real people, real gatherings and real\nwork, never replace them.\n\nFirst Light lives under this Aim as a series of Bets. The first is\n[[bet-first-light-v1]].\n\n## Review notes\n\nAgreed with Tim on 2026-10-20. Review yearly.\n",
+      "id": "aim-digital-world",
+      "properties": {
+        "direction": "Build a digital world that carries the node's real interiority and points people toward something real.",
+        "values": [
+          "value-creation",
+          "value-embodiment"
+        ]
+      },
+      "title": "Digital world",
+      "type": "Aim"
+    },
+    {
+      "content": "\n## The bet\n\nEarlier, First Light was imagined as something built in the dark and revealed\nwhen finished. This system is designed for testable bets, so the first\nversion is the smallest real thing that can get feedback:\n\n1. The website, with the final draft of the Vision essay.\n2. A public view over this planning system (values, aims, outcomes, bets),\n   so people can see within it.\n3. A way to stay in touch: the email list, written as letters.\n\nThe prediction is that the essay plus the system view can generate the\nfoundational interest the Dec 5 checkpoint describes.\n\n## Which Outcomes it should move\n\nThe schema allows one `outcome` per Bet, so this Bet points at\n[[outcome-email-list]], the broadest interest signal. At the checkpoint, also\ncompare results against [[outcome-first-supporters]],\n[[outcome-people-who-want-in]] and [[outcome-public-system-view]].\n[[outcome-first-gathering]] is not expected to move from the site alone and\nneeds its own Bet.\n\n## Plan\n\nConfidence is low, so a short Learn step comes first: share the essay draft\nand a rough system view with a handful of real people before launch\n([[task-first-light-early-readers]]). Then build and launch\n([[task-first-light-site]]).\n\n## Guardrail notes\n\nNo guardrail risk reported. Two to watch:\n\n- Embodiment: the site should point people toward something real (letters,\n  gatherings, conversations), not become the whole relationship.\n- No drift: social numbers are watched, not targeted (see\n  [[outcome-email-list]]).\n\n## Checkpoints\n\n- 2026-10-20: Bet written. Stage backlog.\n- 2026-12-05: Compare observed results with the expectation and set surprise.\n",
+      "id": "bet-first-light-v1",
+      "properties": {
+        "confidence": "low",
+        "cost": 2,
+        "expectation": "We expect that publishing a website with the final Vision essay and a public view of this planning system will, by 2026-12-05, bring at least 50 email signups, 5 supporters, 2 people who want ongoing involvement, and 5 substantive responses to the system view",
+        "guardrail_risk": false,
+        "impact": 3,
+        "key_unknowns": [
+          "Will the Vision essay resonate with people who don't already know Tim?",
+          "Is a view into the planning system interesting to outsiders, or only to us?",
+          "Which channels will actually bring people to the site?",
+          "What does \"being part of it\" look like for someone who wants in?"
+        ],
+        "learning": 3,
+        "outcome": "outcome-email-list",
+        "stage": "backlog",
+        "status": "active"
+      },
+      "title": "First Light v1: the Vision essay and a public view of the system",
+      "type": "Bet"
+    },
+    {
+      "content": "\n## Why this signal\n\nThe email list is the one channel where the node owns the relationship and no\nalgorithm sits in between. If what goes out reads like letters rather than\nmarketing, it carries Communion well. Signups measure general interest;\nreplies are the stronger signal. 50 is a default chosen for a six-week\nwindow. Adjust it if it feels off.\n\n## Watched, not targeted: social metrics\n\nFollowers, views and likes are watched for context and can be shown\npublicly as proof, but they are not targets. Making for the algorithm is the\nexact failure Creation guards against, and a follower target would test\nNo drift on day one. If one social number is worth noting, prefer the\nclosest thing to real connection: DMs, replies, people sharing with a friend.\n\nGoodhart check: if followers climb but signups and replies do not, that tells\nus something.\n",
+      "id": "outcome-email-list",
+      "properties": {
+        "aims": [
+          "aim-digital-world",
+          "aim-community"
+        ],
+        "check_method": "Tim reads subscriber and reply counts from the email tool every Monday and at the Dec 5 checkpoint",
+        "signal": "Confirmed email list subscribers, plus the number who have replied to at least one letter",
+        "target": "At least 50 confirmed subscribers by 2026-12-05, with at least 5 who have replied to a letter"
+      },
+      "title": "Fifty people on the email list",
+      "type": "Outcome"
+    },
+    {
+      "content": "\n## Why this signal\n\nBodies in a room are Embodiment and Communion in one signal. This is the\nclearest sign that the digital world is pointing people toward something real.\n\nNo Bet covers this yet. The website alone will not produce a gathering; it\nneeds its own plan.\n\n## Gatherings\n\n(Record each gathering here: date, place, headcount, notes.)\n",
+      "id": "outcome-first-gathering",
+      "properties": {
+        "aims": [
+          "aim-community"
+        ],
+        "check_method": "Tim records date, place and headcount in this node's body after each gathering",
+        "signal": "In-person gatherings hosted by the node, and the number of people who attended each one",
+        "target": "At least 1 gathering with at least 10 attendees by 2026-12-05",
+        "values": [
+          "value-embodiment"
+        ]
+      },
+      "title": "First in-person gathering with ten people",
+      "type": "Outcome"
+    },
+    {
+      "content": "\n## Why this signal\n\n\"Demonstrably move matter\": interest counts when it pulls money toward the\nthing. The first dollar from a stranger is a different kind of signal than\nzero. The number is deliberately small; it separates \"something is\nhappening\" from \"nothing is happening.\"\n\n## Value check\n\nAt review, ask whether supporters are paying for something they genuinely\nvalue, or out of obligation. Support that only comes from pressure would hit\nthe target and miss the Aim.\n",
+      "id": "outcome-first-supporters",
+      "properties": {
+        "aims": [
+          "aim-community"
+        ],
+        "check_method": "Tim counts payments and pledges from the payment or support platform and direct transfers, every Monday and at the Dec 5 checkpoint",
+        "signal": "Distinct people (not family or close friends acting as a favor) who have paid for or financially supported something from the node, counted cumulatively from 2026-10-20",
+        "target": "At least 5 supporters by 2026-12-05"
+      },
+      "title": "Five people support the node by December 5",
+      "type": "Outcome"
+    },
+    {
+      "content": "\n## Why this signal\n\nThis is the seed of [[aim-community]]: the move from a solo practice to people\nwho are known and make things together. What \"being part of it\" means is\nstill open, and these first conversations are how we learn it.\n\n## People\n\n(Name, date, what they want to do.)\n",
+      "id": "outcome-people-who-want-in",
+      "properties": {
+        "aims": [
+          "aim-community"
+        ],
+        "check_method": "Tim lists each person and the conversation in this node's body as it happens, and recounts at the Dec 5 checkpoint",
+        "signal": "Distinct people who have said, unprompted or after a real conversation, that they want an ongoing role in the node (collaborating, joining, helping regularly)",
+        "target": "At least 2 people by 2026-12-05 (3 would be a strong result)"
+      },
+      "title": "Two or three people want to be part of it",
+      "type": "Outcome"
+    },
+    {
+      "content": "\n## Why this signal\n\nShowing the node's real interiority and plan is the Digital world Aim in\nminiature. People should be able to see within the system: what we value,\nwhat we are betting on, and how it is going.\n\n## Value check\n\nPublishing the system should make the node more honest, not more performative.\nIf the public view starts shaping what we write in it, that is drift.\n",
+      "id": "outcome-public-system-view",
+      "properties": {
+        "aims": [
+          "aim-digital-world"
+        ],
+        "check_method": "Tim confirms the view is live and logs each substantive response in this node's body; recount at the Dec 5 checkpoint",
+        "signal": "Whether a public view of this planning system is live, and distinct people who respond to it substantively (a message, reply or conversation about its contents, not a like)",
+        "target": "View live by 2026-12-05, with at least 5 people having engaged with it substantively"
+      },
+      "title": "The planning system is public and people engage with it",
+      "type": "Outcome"
+    },
+    {
+      "content": "\n## Findings\n\nRecord responses here.\n",
+      "id": "task-first-light-early-readers",
+      "properties": {
+        "bet": "bet-first-light-v1",
+        "checklist": [
+          {
+            "done": false,
+            "text": "Pick 3 to 5 real people, including at least one who doesn't know Tim well"
+          },
+          {
+            "done": false,
+            "text": "Send the essay draft and a rough look at the system view"
+          },
+          {
+            "done": false,
+            "text": "Ask what moved them, what lost them, and whether they'd want to hear more"
+          },
+          {
+            "done": false,
+            "text": "Record what was learned and reassess the Bet's confidence"
+          }
+        ],
+        "kind": "learn",
+        "owner": "Tim",
+        "stage": "backlog"
+      },
+      "title": "Share the Vision essay and system view with early readers",
+      "type": "Task"
+    },
+    {
+      "content": "\n## Notes\n\nStart after the early-readers Learn task.\n",
+      "id": "task-first-light-site",
+      "properties": {
+        "bet": "bet-first-light-v1",
+        "checklist": [
+          {
+            "done": false,
+            "text": "Finish the final draft of the Vision essay"
+          },
+          {
+            "done": false,
+            "text": "Build the public view over the planning system (decide which nodes are public)"
+          },
+          {
+            "done": false,
+            "text": "Add an email signup and write the first letter"
+          },
+          {
+            "done": false,
+            "text": "Add a simple way to support the node"
+          },
+          {
+            "done": false,
+            "text": "Launch and share it with people directly"
+          }
+        ],
+        "kind": "build",
+        "owner": "Tim",
+        "stage": "backlog"
+      },
+      "title": "Build and launch the First Light v1 website",
+      "type": "Task"
+    },
+    {
+      "content": "\nBecause we keep talking about beauty: relationships are really one of the most\nbeautiful things this universe has to offer. Having true commitment, care, and\nlove is all part of it.\n\nBeing _known_ is what separates the real thing from simulated belonging, which\nis warm but anonymous. _Staying_ names the cost. Commitment opens us up to real\npain, and that very threat is what makes it meaningful at all.\n\nCommunion is also the precondition for an organization that practices the\nother two.\n\n## What it rules out\n\nSimulated belonging. Commitment that only lasts while nothing is hard.\n\n## In the body\n\nShowing up in person. Receiving people warmly, and appreciating the time and\nmemory that form another human.\n\n## From the Vision\n\n\"Building relationships in which people are known and committed to each other\n... treating these connections like an act of creation itself.\" See _Vision\n2.0_, Incarnation, Crucifixion, and Resurrection.\n\n## Review question\n\nDo we actually know each other, and did we stay when it was hard?\n",
+      "id": "value-communion",
+      "properties": {
+        "kind": "aspiration",
+        "statement": "We commit to knowing each other and staying, and treat our relationships as among the most beautiful things we make."
+      },
+      "title": "Communion",
+      "type": "Value"
+    },
+    {
+      "content": "\nWe use the tools and capacities given to us to pull more beauty out of them, to\nrearrange matter into a more beautiful configuration. Enjoying the beauty of\nthat process belongs to Contemplation; Creation is the act of making things\nmore beautiful and giving them away.\n\nIt works in concentric circles. First, we are creating for each other within\nthe org; that is step one. Beyond that, we do want to make things that other\nhumans can appreciate. But there is still a distinction between making things\nfor \"the algorithm,\" so to speak, and really imagining it being made for a\nreal person: maybe someone like yourself, or the members of your org, even if\nyou don't know them.\n\n## What it rules out\n\nMaking for the \"blank other.\" The song for Instagram instead of the song for\nthe girl you have a crush on.\n\n## In the body\n\nMaking with our hands. Pouring our humanity, our unique spirit, into endeavors\nthat can shine brightly.\n\n## From the Vision\n\n\"Giving form to what you discover and offering it to others.\" See _Vision\n2.0_, Creation, Fall, and Incarnation.\n\n## Review question\n\nWho did we actually picture when we made this?\n",
+      "id": "value-creation",
+      "properties": {
+        "kind": "aspiration",
+        "statement": "We shape what we've been given into something more beautiful, and offer it to someone real."
+      },
+      "title": "Creation",
+      "type": "Value"
+    },
+    {
+      "content": "\nEverything ultimately starts in the body. The body isn't a fourth aspiration;\nit's the medium all three happen through. We attend with our bodies, make with\nour hands, and show up in person.\n\nSeraph will have a digital expression that reaches people who cannot be there.\nThat world should give people a true taste of the org's interiority while also\npushing them to seek out something real to them.\n\n## What it guards against\n\nA life lived mostly through screens. Digital experiences that become the\ndestination instead of a way back to bodies, rooms, and people.\n\n## For Bets\n\nFlag a Bet when its digital piece substitutes for in-person practice or\ngathering, rather than leading people towards it.\n",
+      "id": "value-embodiment",
+      "properties": {
+        "kind": "guardrail",
+        "statement": "The digital never replaces the embodied; it points back to it."
+      },
+      "title": "Embodiment",
+      "type": "Value"
+    }
+  ],
+  "schemaVersion": 1
+}

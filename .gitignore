@@ -1,3 +1,11 @@
 node_modules/
 dist/
 build/
+
+# Python core development
+.venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+# Generated publication snapshots belong outside source control.
+/public/data/nodes.json
